@@ -1,3 +1,4 @@
+# Use official PHP Apache image
 FROM php:8.1-apache
 
 # Set working directory
@@ -22,10 +23,9 @@ RUN a2enmod rewrite
 # Copy your application files
 COPY . .
 
-# Set proper permissions
+# Set proper permissions (removed uploads directory reference)
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chmod -R 777 /var/www/html/uploads
+    && chmod -R 755 /var/www/html
 
 # Expose port 80
 EXPOSE 80
