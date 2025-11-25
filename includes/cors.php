@@ -11,14 +11,17 @@ $allowedOrigins = getenv('ALLOWED_ORIGINS')
         'http://localhost:3000',
         'http://localhost',
         'http://127.0.0.1:3000',
-        'http://127.0.0.1'
+        'http://127.0.0.1',
+        'https://frontend-clink-peol96r07-zibiah945-7736s-projects.vercel.app'
     ];
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if (in_array($origin, $allowedOrigins)) {
+// Allow the origin if it's in the allowed list or matches Vercel pattern
+if (in_array($origin, $allowedOrigins) || strpos($origin, '.vercel.app') !== false) {
     header("Access-Control-Allow-Origin: $origin");
 } else {
+    // Fallback to first allowed origin
     header("Access-Control-Allow-Origin: " . $allowedOrigins[0]);
 }
 
